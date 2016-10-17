@@ -15,11 +15,9 @@ struct List *ListNew(struct List *self, int itemSize, void(*dispose)(void*)) {
 }
 
 void ListDispose(struct List *self) {
-  if (self) {
-    void(*dispose)(void*);
-    dispose = self->dispose ? self->dispose : NULL;
+  if (self && self->dispose) {
     for (int index = 0; index < self->count; ++index) {
-      dispose((char*)self->buffer + index * self->itemSize);
+      self->dispose((char*)self->buffer + index * self->itemSize);
     }
   }
 }
