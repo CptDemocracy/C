@@ -20,4 +20,6 @@
 
   const void *ListGetAt(struct List *self, int index);
 
+  void ListSetAt(struct List *self, int index, const void *item);
+
 #endif/* LIST_H */
