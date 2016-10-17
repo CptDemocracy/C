@@ -60,3 +60,7 @@ void ListSetAt(struct List *self, int index, const void *item) {
     (void)memcpy((char*)self->buffer + index * self->itemSize, item, self->itemSize);
   }
 }
+
+int ListGetLength(struct List *self) {
+  return self ? self->count : 0;
+}
