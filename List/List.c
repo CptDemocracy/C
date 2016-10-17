@@ -58,7 +58,7 @@ const void *ListGetAt(struct List *self, int index) {
 }
 
 void ListSetAt(struct List *self, int index, const void *item) {
-	if (self && index >= 0 && index < self->count && item) {
-		(void)memcpy((char*)self->buffer + index * self->itemSize, item, self->itemSize);
-	}
+  if (self && index >= 0 && index < self->count && item) {
+    (void)memcpy((char*)self->buffer + index * self->itemSize, item, self->itemSize);
+  }
 }
