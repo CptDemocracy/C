@@ -25,7 +25,7 @@ void ListDispose(struct List *self) {
 }
 
 void ListAdd(struct List *self, const void *item) {
-  if (self) {
+  if (self && item) {
     (void)ListEnsureCapacity(self, self->count + 1);
     (void)memcpy((char*)self->buffer + self->count * self->itemSize, item, self->itemSize);
     ++self->count;
@@ -55,4 +55,10 @@ const void *ListGetAt(struct List *self, int index) {
     return (char*)self->buffer + index * self->itemSize;
   }
   return NULL;
+}
+
+void ListSetAt(struct List *self, int index, const void *item) {
+	if (self && index >= 0 && index < self->count && item) {
+		(void)memcpy((char*)self->buffer + index * self->itemSize, item, self->itemSize);
+	}
 }
