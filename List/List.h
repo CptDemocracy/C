@@ -22,4 +22,6 @@
 
   void ListSetAt(struct List *self, int index, const void *item);
 
+  int ListGetLength(struct List *self);
+
 #endif/* LIST_H */
