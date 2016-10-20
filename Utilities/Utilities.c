@@ -57,7 +57,7 @@ char* generateRandomString(char buffer[], size_t bufferLength, const char *chars
   size_t charsSelectionLength = strlen(charsSelection);
   size_t index = 0;
   while (index < bufferLength - 1) {
-    char selectedChar = *((char*)makeRandomChoice((void*)charsSelection, sizeof(char), charsSelectionLength));
+    char selectedChar = *((char*)makeRandomChoice(charsSelection, sizeof(char), charsSelectionLength));
     buffer[index] = selectedChar;
     ++index;
   }
