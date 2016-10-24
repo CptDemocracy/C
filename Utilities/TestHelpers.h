@@ -23,17 +23,32 @@ do {                                                 \
   }                                                  \
 } while (0)
 
-#define ASSERT_DYNAMIC_ARRAY_EQUALS(lhs, lhsSize, rhs, rhsSize) \
- do {                                                           \
-  assert((lhs) && (rhs) || !(lhs) && !(rhs));                   \
-  if (lhs && rhs) {                                             \
-    assert(lhsSize == rhsSize);                                 \
-	assert(sizeof(lhs[0]) == sizeof(rhs[0]));                     \
-	size_t itemSize = sizeof(lhs[0]);                             \
-	for (size_t index = 0; index < lhsSize; ++index) {            \
-	  const void *leftItem = (char*)lhs + index * itemSize;       \
-	  const void *rightItem = (char*)rhs + index * itemSize;      \
-	  assert(!memcmp(leftItem, rightItem, itemSize));             \
-	}                                                             \
-  }                                                             \
+#define ASSERT_DYNAMIC_ARRAY_EQUALS(lhs, lhsSize, rhs, rhsSize)   \
+ do {                                                             \
+  assert((lhs) && (rhs) || !(lhs) && !(rhs));                     \
+  if (lhs && rhs) {                                               \
+    assert(lhsSize == rhsSize);                                   \
+	assert(sizeof(lhs[0]) == sizeof(rhs[0]));                 \
+	size_t itemSize = sizeof(lhs[0]);                         \
+	for (size_t index = 0; index < lhsSize; ++index) {        \
+	  const void *leftItem = (char*)lhs + index * itemSize;   \
+	  const void *rightItem = (char*)rhs + index * itemSize;  \
+	  assert(!memcmp(leftItem, rightItem, itemSize));         \
+	}                                                         \
+  }                                                               \
+ } while (0)
+
+#define ASSERT_DYNAMIC_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)  \
+ do {                                                                            \
+  assert((lhs) && (rhs) || !(lhs) && !(rhs));                                    \
+  if (lhs && rhs) {                                                              \
+    assert(lhsSize == rhsSize);                                                  \
+	assert(sizeof(lhs[0]) == sizeof(rhs[0]));                                \
+	size_t itemSize = sizeof(lhs[0]);                                        \
+	for (size_t index = 0; index < lhsSize; ++index) {                       \
+	  const void *leftItem = (char*)lhs + index * itemSize;                  \
+	  const void *rightItem = (char*)rhs + index * itemSize;                 \
+	  assert(!cmp(leftItem, rightItem, itemSize));                           \
+	}                                                                        \
+  }                                                                              \
  } while (0)
