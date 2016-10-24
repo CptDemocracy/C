@@ -48,7 +48,7 @@ do {                                                 \
 	for (size_t index = 0; index < lhsSize; ++index) {                       \
 	  const void *leftItem = (char*)lhs + index * itemSize;                  \
 	  const void *rightItem = (char*)rhs + index * itemSize;                 \
-	  assert(!cmp(leftItem, rightItem, itemSize));                           \
+	  assert(!cmp(leftItem, rightItem));                                     \
 	}                                                                        \
   }                                                                              \
  } while (0)
