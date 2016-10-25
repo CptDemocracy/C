@@ -31,8 +31,8 @@ do {                                                 \
 	assert(sizeof(lhs[0]) == sizeof(rhs[0]));                 \
 	size_t itemSize = sizeof(lhs[0]);                         \
 	for (size_t index = 0; index < lhsSize; ++index) {        \
-	  const void *leftItem = (char*)lhs + index * itemSize;   \
-	  const void *rightItem = (char*)rhs + index * itemSize;  \
+	  const void **leftItem = (char*)lhs + index * itemSize;  \
+	  const void **rightItem = (char*)rhs + index * itemSize; \
 	  assert(!memcmp(leftItem, rightItem, itemSize));         \
 	}                                                         \
   }                                                               \
@@ -46,9 +46,9 @@ do {                                                 \
 	assert(sizeof(lhs[0]) == sizeof(rhs[0]));                                \
 	size_t itemSize = sizeof(lhs[0]);                                        \
 	for (size_t index = 0; index < lhsSize; ++index) {                       \
-	  const void *leftItem = (char*)lhs + index * itemSize;                  \
-	  const void *rightItem = (char*)rhs + index * itemSize;                 \
-	  assert(!cmp(leftItem, rightItem));                                     \
+	  const void **leftItem = (char*)lhs + index * itemSize;                 \
+	  const void **rightItem = (char*)rhs + index * itemSize;                \
+	  assert(!cmp(*leftItem, *rightItem));                                   \
 	}                                                                        \
   }                                                                              \
  } while (0)
