@@ -40,12 +40,12 @@ int arrayEquals(const void **lhsArray, size_t lhsArrayLength,
   return 0;
 }
 
-size_t getRandomSizeTypeInteger(size_t lowerBoundInclusive, size_t upperBoundExclusive) {
-  return (size_t)rand() % (upperBoundExclusive - lowerBoundInclusive) + lowerBoundInclusive;
-}
-
 int getRandomInteger(int lowerBoundInclusive, int upperBoundExclusive) {
   return rand() % (upperBoundExclusive - lowerBoundInclusive) + lowerBoundInclusive;
+}
+
+size_t getRandomSizeTypeInteger(size_t lowerBoundInclusive, size_t upperBoundExclusive) {
+  return (size_t)rand() % (upperBoundExclusive - lowerBoundInclusive) + lowerBoundInclusive;
 }
 
 void* makeRandomChoice(const void *items, size_t itemSize, size_t itemCount) {
