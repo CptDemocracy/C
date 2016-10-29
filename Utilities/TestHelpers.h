@@ -3,7 +3,7 @@
 
 #define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
 
-#define ASSERT_ARRAY_EQUALS(lhs, rhs)                \
+/*#define ASSERT_ARRAY_EQUALS(lhs, rhs)              \
 do {                                                 \
   size_t lhsSize = ARRAY_SIZE(lhs);                  \
   size_t rhsSize = ARRAY_SIZE(rhs);                  \
@@ -11,6 +11,21 @@ do {                                                 \
   for (size_t index = 0; index < lhsSize; ++index) { \
     assert((lhs)[index] == (rhs)[index]);            \
   }                                                  \
+} while (0)*/
+
+#define ASSERT_ARRAY_EQUALS(lhs, lhsSize, rhs, rhsSize)            \
+do {                                                               \
+  int areEqual = 1;                                                \
+  if (lhsSize == rhsSize) {                                        \
+    for (size_t index = 0; index < lhsSize && areEqual; ++index) { \
+      if ((lhs)[index] != (rhs)[index]) {                          \
+        areEqual = 0;                                              \
+      }                                                            \
+    }                                                              \
+  } else {                                                         \
+    areEqual = 0;                                                  \
+  }                                                                \
+  assert(areEqual);                                                \
 } while (0)
 
 #define ASSERT_ARRAY_EQUALS_COMPARE_FN(lhs, rhs, cmp)\
