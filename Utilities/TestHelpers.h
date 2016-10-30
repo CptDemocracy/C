@@ -72,7 +72,7 @@ do {                                                 \
   cr_assert(areEqual);                                                          \
  } while (0)
 
-#define ASSERT_DYNAMIC_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)  \
+/*#define ASSERT_DYNAMIC_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)  \
  do {                                                                            \
   assert((lhs) && (rhs) || !(lhs) && !(rhs));                                    \
   if ((lhs) && (rhs)) {                                                          \
@@ -85,4 +85,23 @@ do {                                                 \
       assert(!cmp(*leftItem, *rightItem));                                       \
     }                                                                            \
   }                                                                              \
+ } while (0)*/
+
+#define ASSERT_DYNAMIC_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp) \
+ do {                                                                           \
+  int areEqual = (lhs) && (rhs) || !(lhs) && !(rhs);                            \
+  if ((lhs) && (rhs)) {                                                         \
+    areEqual = lhsSize == rhsSize && sizeof((lhs)[0]) == sizeof((rhs)[0]);      \
+    if (areEqual) {                                                             \
+      size_t itemSize = sizeof((lhs)[0]);                                       \
+      for (size_t index = 0; index < lhsSize && areEqual; ++index) {            \
+        const void **leftItem = (char*)(lhs) + index * itemSize;                \
+        const void **rightItem = (char*)(rhs) + index * itemSize;               \
+        if (cmp(*leftItem, *rightItem) != 0) {                                  \
+          areEqual = 0;                                                         \
+        }                                                                       \
+      }                                                                         \
+    }                                                                           \
+  }                                                                             \
+  assert(areEqual);                                                             \
  } while (0)
