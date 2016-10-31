@@ -69,7 +69,7 @@ do {                                                 \
       }                                                                         \
     }                                                                           \
   }                                                                             \
-  cr_assert(areEqual);                                                          \
+  assert(areEqual);                                                          \
  } while (0)
 
 /*#define ASSERT_DYNAMIC_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)  \
