@@ -29,3 +29,27 @@ double RandomGeneratorNextDouble(struct RandomGenerator *self) {
   XorShift128(&self->state0_, &self->state1_);
   return ToDouble(self->state0_, self->state1_);
 }
+
+int RandomGeneratorNextInt(struct RandomGenerator *self, int max) {
+  assert(max > 0);
+
+  // Fast path if max is a power of 2.
+  if (IS_POWER_OF_TWO(max)) {
+    return (int)((max * (int64_t)(RandomGeneratorNext(self, 31))) >> 31);
+  }
+
+  while (true) {
+    int rnd = RandomGeneratorNext(self, 31);
+    int val = rnd % max;
+    if (rnd - val + (max - 1) >= 0) {
+      return val;
+    }
+  }
+}
+
+int RandomGeneratorNext(struct RandomGenerator *self, int bits) {
+  assert(bits > 0);
+  assert(bits <= 32);
+  XorShift128(&self->state0_, &self->state1_);
+  return (int)((self->state0_ + self->state1_) >> (64 - bits));
+}
