@@ -18,10 +18,12 @@
 
   struct List* ListEnsureCapacity(struct List *self, int minCapacityRequired);
 
-  const void *ListGetAt(struct List *self, int index);
+  const void *ListGetAt(const struct List *self, int index);
 
   void ListSetAt(struct List *self, int index, const void *item);
 
-  int ListGetLength(struct List *self);
+  int ListGetLength(const struct List *self);
+
+  void ListSlice(const struct List *self, int start, int end, int step, struct List *destination);
 
 #endif/* LIST_H */
