@@ -2,6 +2,9 @@
 #include <string.h>
 #include "List.h"
 
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+
 struct List *ListNew(struct List *self, int itemSize, void(*dispose)(void*)) {
   if (self) {
     self->itemSize = itemSize;
@@ -15,10 +18,13 @@ struct List *ListNew(struct List *self, int itemSize, void(*dispose)(void*)) {
 }
 
 void ListDispose(struct List *self) {
-  if (self && self->dispose) {
-    for (int index = 0; index < self->count; ++index) {
-      self->dispose((char*)self->buffer + index * self->itemSize);
-    }
+  if (self) {
+	if (self->dispose) {
+	  for (int index = 0; index < self->count; ++index) {
+		self->dispose((char*)self->buffer + index * self->itemSize);
+	  }
+	}
+	free(self->buffer);
   }
 }
 
@@ -32,8 +38,8 @@ void ListAdd(struct List *self, const void *item) {
 
 struct List* ListEnsureCapacity(struct List *self, int minCapacityRequired) {
   if (self) {
-    if (self->count < minCapacityRequired) {
-      int newCapacity = self->count * 2 > minCapacityRequired ? self->count * 2 : minCapacityRequired;
+    if (self->capacity < minCapacityRequired) {
+      int newCapacity = self->count * 2 > minCapacityRequired ? self->capacity * 2 : minCapacityRequired;
       void *newBuffer = calloc(newCapacity, self->itemSize);
       if (newBuffer && memcpy(newBuffer, self->buffer, self->count * self->itemSize)) {
         self->capacity = newCapacity;
@@ -48,7 +54,7 @@ struct List* ListEnsureCapacity(struct List *self, int minCapacityRequired) {
   return NULL;
 }
 
-const void *ListGetAt(struct List *self, int index) {
+const void *ListGetAt(const struct List *self, int index) {
   if (self && index >= 0 && index < self->count) {
     return (char*)self->buffer + index * self->itemSize;
   }
@@ -61,6 +67,23 @@ void ListSetAt(struct List *self, int index, const void *item) {
   }
 }
 
-int ListGetLength(struct List *self) {
+int ListGetLength(const struct List *self) {
   return self ? self->count : 0;
+}
+
+void ListSlice(const struct List *self, int start, int end, int step, struct List *destination) {
+  const int sliceStep = step != 0 ? step : 1;
+  if (sliceStep > 0) {
+    const int sliceStart = MIN(self->count, MAX(0, start));
+    const int sliceEnd = MIN(self->count, MAX(0, end));
+    for (int index = sliceStart; index < sliceEnd; index += sliceStep) {
+      ListAdd(destination, ListGetAt(self, index));
+    }
+  } else {
+    const int sliceStart = MIN(self->count, MAX(0, start));
+    const int sliceEnd = MIN(self->count, MAX(-1, end));
+    for (int index = sliceStart; index > sliceEnd; index += sliceStep) {
+      ListAdd(destination, ListGetAt(self, index));
+    }
+  }
 }
