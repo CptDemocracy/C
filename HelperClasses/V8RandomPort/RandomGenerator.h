@@ -1,5 +1,5 @@
-#ifndef RANDOM_H
-#define RANDOM_H
+#ifndef RANDOM_GENERATOR_H
+#define RANDOM_GENERATOR_H
 
 /*
  * PLEASE NOTICE!
@@ -101,4 +101,4 @@ static inline void RandomGeneratorSetSeed(struct RandomGenerator *self, int64_t 
   self->state1_ = MurmurHash3(self->state0_);
 }
 
-#endif /* RANDOM_H */
+#endif /* RANDOM_GENERATOR_H */
