@@ -30,6 +30,12 @@ struct RandomGenerator *RandomGeneratorNew(struct RandomGenerator *self, int64_t
 
 void RandomGeneratorDispose(struct RandomGenerator *self);
 
+// See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L105
+int64_t RandomGeneratorNextInt64(struct RandomGenerator *self);
+
+// See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L111
+void RandomGeneratorNextBytes(struct RandomGenerator *self, void* buffer, size_t buflen);
+
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L99
 double RandomGeneratorNextDouble(struct RandomGenerator *self);
 
