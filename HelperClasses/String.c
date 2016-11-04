@@ -6,13 +6,13 @@
 
 struct String *StringNew(struct String *self, const char *source) {
   if (self) {
-	self->chars = (struct List*)malloc(sizeof(struct List));
-	if (self->chars && ListNew(self->chars, sizeof(char), NULL)) {
-	  for (const char *pchar = source; *pchar; ++pchar) {
-		ListAdd(self->chars, pchar);
-	  }
-	  return self;
-	}
+    self->chars = (struct List*)malloc(sizeof(struct List));
+    if (self->chars && ListNew(self->chars, sizeof(char), NULL)) {
+      for (const char *pchar = source; *pchar; ++pchar) {
+        ListAdd(self->chars, pchar);
+      }
+      return self;
+    }
   }
   return NULL;
 }
