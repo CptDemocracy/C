@@ -27,6 +27,17 @@ void RandomGeneratorDispose(struct RandomGenerator *self) {
   // Not much to do here...
 }
 
+int64_t RandomGeneratorNextInt64(struct RandomGenerator *self) {
+  XorShift128(&self->state0_, &self->state1_);
+  return (int64_t)(self->state0_ + self->state1_);
+}
+
+void RandomGeneratorNextBytes(struct RandomGenerator *self, void* buffer, size_t buflen) {
+  for (size_t n = 0; n < buflen; ++n) {
+    ((uint8_t*)(buffer))[n] = (uint8_t)(RandomGeneratorNext(self, 8));
+  }
+}
+
 double RandomGeneratorNextDouble(struct RandomGenerator *self) {
   XorShift128(&self->state0_, &self->state1_);
   return ToDouble(self->state0_, self->state1_);
