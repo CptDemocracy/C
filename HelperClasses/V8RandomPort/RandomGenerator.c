@@ -10,7 +10,7 @@
  * I have simply adapted some of the code for my own use in C.
  */
 
-#include "Random.h"
+#include "RandomGenerator.h"
 
 #define IS_POWER_OF_TWO(value) (((value) & ((value) - 1)) == 0)
 
