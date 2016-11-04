@@ -12,6 +12,8 @@
 
 #include "Random.h"
 
+#define IS_POWER_OF_TWO(value) (((value) & ((value) - 1)) == 0)
+
 struct RandomGenerator *RandomGeneratorNew(struct RandomGenerator *self, int64_t seed) { 
   /* 
    * self->initial_seed_, self->state0_, self->state1_
