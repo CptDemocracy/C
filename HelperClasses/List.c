@@ -19,12 +19,12 @@ struct List *ListNew(struct List *self, int itemSize, void(*dispose)(void*)) {
 
 void ListDispose(struct List *self) {
   if (self) {
-		if (self->dispose) {
-			for (int index = 0; index < self->count; ++index) {
-			self->dispose((char*)self->buffer + index * self->itemSize);
-			}
-		}
-		free(self->buffer);
+    if (self->dispose) {
+      for (int index = 0; index < self->count; ++index) {
+        self->dispose((char*)self->buffer + index * self->itemSize);
+      }
+    }
+    free(self->buffer);
   }
 }
 
