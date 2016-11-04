@@ -30,7 +30,14 @@ struct RandomGenerator *RandomGeneratorNew(struct RandomGenerator *self, int64_t
 
 void RandomGeneratorDispose(struct RandomGenerator *self);
 
+// See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L99
 double RandomGeneratorNextDouble(struct RandomGenerator *self);
+
+// See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L81
+int RandomGeneratorNextInt(struct RandomGenerator *self, int max);
+
+// See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L118
+int RandomGeneratorNext(struct RandomGenerator *self, int bits);
 
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.h#L101
 static inline void XorShift128(uint64_t* state0, uint64_t* state1) {
