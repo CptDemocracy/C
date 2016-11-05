@@ -17,6 +17,20 @@
  *
  * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/LICENSE.v8
  *
+ * P.S. I did write some of the functions myself, but they are mostly built atop
+ * the V8 ones and I don't deem necessary to list them. Eitherway, please include 
+ * the copyright notice above, if you want to use it in your code. Thanks!
+ *
+ * If you find any bugs in the code, please message me here on Codewars, or create
+ * a pull request on GitHub: 
+ * https://github.com/CptDemocracy/C/tree/master/HelperClasses
+ * The files you might be looking for are:
+ * - RandomUtilities.h
+ * - RandomUtilities.c
+ * - V8RandomPort/RandomGenerator.h
+ * - V8RandomPort/RandomGenerator.c
+ *
+ * Happy coding!
  */
 
 #include <stdint.h>
