@@ -36,6 +36,6 @@ void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_
   buffer[stringLength] = '\0';
 }
 
-int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxValue) {
-  return minValue + RandomGeneratorNextInt(generator, 1 + maxValue - minValue);
+int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxExclusiveValue) {
+  return minValue + RandomGeneratorNextInt(generator, maxExclusiveValue - minValue);
 }
