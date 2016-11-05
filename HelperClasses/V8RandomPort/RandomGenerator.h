@@ -11,6 +11,14 @@
  * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc
  *
  * I have simply adapted some of the code for my own use in C.
+ *
+ * In accordance with the license agreement, I'm providing the original copyright
+ * notices. You can find them at the following addresses:
+ *
+ * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/LICENSE
+ *
+ * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/LICENSE.v8
+ *
  */
 
 #include <stdint.h>
@@ -40,7 +48,7 @@ void RandomGeneratorNextBytes(struct RandomGenerator *self, void* buffer, size_t
 double RandomGeneratorNextDouble(struct RandomGenerator *self);
 
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L81
-int RandomGeneratorNextInt(struct RandomGenerator *self, int max);
+int RandomGeneratorNextInt(struct RandomGenerator *self, int maxExclusive);
 
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L118
 int RandomGeneratorNext(struct RandomGenerator *self, int bits);
