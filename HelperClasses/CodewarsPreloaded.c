@@ -68,6 +68,10 @@ int RandomGeneratorNextInt(struct RandomGenerator *self, int max);
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L118
 int RandomGeneratorNext(struct RandomGenerator *self, int bits);
 
+void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_t stringLength, const char *charsSelection);
+
+int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxExclusiveValue);
+
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.h#L101
 static inline void XorShift128(uint64_t* state0, uint64_t* state1) {
   uint64_t s1 = *state0;
@@ -199,4 +203,17 @@ void RandomShuffle(struct RandomGenerator *generator, void *items, size_t itemCo
 void *RandomChoice(struct RandomGenerator *generator, const void *items, size_t itemCount, size_t itemSize) {
   const size_t index = RandomGeneratorNextInt(generator, itemCount);
   return (void*)((char*)items + index * itemSize);
+}
+
+void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_t stringLength, const char *charsSelection) {
+  const size_t charsSelectionLength = strlen(charsSelection);
+  for (size_t index = 0; index < stringLength; ++index) {
+    const char selectedChar = *(char*)RandomChoice(generator, charsSelection, charsSelectionLength, sizeof(char));
+    buffer[index] = selectedChar;
+  }
+  buffer[stringLength] = '\0';
+}
+
+int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxExclusiveValue) {
+  return minValue + RandomGeneratorNextInt(generator, maxExclusiveValue - minValue);
 }
