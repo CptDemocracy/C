@@ -43,18 +43,18 @@ double RandomGeneratorNextDouble(struct RandomGenerator *self) {
   return ToDouble(self->state0_, self->state1_);
 }
 
-int RandomGeneratorNextInt(struct RandomGenerator *self, int max) {
-  assert(max > 0);
+int RandomGeneratorNextInt(struct RandomGenerator *self, int maxExclusive) {
+  assert(maxExclusive > 0);
 
   // Fast path if max is a power of 2.
-  if (IS_POWER_OF_TWO(max)) {
-    return (int)((max * (int64_t)(RandomGeneratorNext(self, 31))) >> 31);
+  if (IS_POWER_OF_TWO(maxExclusive)) {
+    return (int)((maxExclusive * (int64_t)(RandomGeneratorNext(self, 31))) >> 31);
   }
 
   while (true) {
     int rnd = RandomGeneratorNext(self, 31);
-    int val = rnd % max;
-    if (rnd - val + (max - 1) >= 0) {
+    int val = rnd % maxExclusive;
+    if (rnd - val + (maxExclusive - 1) >= 0) {
       return val;
     }
   }
