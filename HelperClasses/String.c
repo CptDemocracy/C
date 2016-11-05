@@ -39,7 +39,3 @@ char StringGetAt(const struct String *self, int index) {
 int StringGetLength(const struct String *self) {
   return ListGetLength(self->chars);
 }
-
-void StringSlice(const struct String *self, int start, int end, int step, struct String *destination) {
-  ListSlice(self->chars, start, end, step, destination->chars);
-}
