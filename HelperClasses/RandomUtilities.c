@@ -26,3 +26,16 @@ void *RandomChoice(struct RandomGenerator *generator, const void *items, size_t 
   const size_t index = RandomGeneratorNextInt(generator, itemCount);
   return (void*)((char*)items + index * itemSize);
 }
+
+void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_t stringLength, const char *charsSelection) {
+  const size_t charsSelectionLength = strlen(charsSelection);
+  for (size_t index = 0; index < stringLength; ++index) {
+    const char selectedChar = *(char*)RandomChoice(generator, charsSelection, charsSelectionLength, sizeof(char));
+    buffer[index] = selectedChar;
+  }
+  buffer[stringLength] = '\0';
+}
+
+int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxValue) {
+  return minValue + RandomGeneratorNextInt(generator, 1 + maxValue - minValue);
+}
