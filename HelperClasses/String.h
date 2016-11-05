@@ -15,6 +15,4 @@
 
   int StringGetLength(const struct String *self);
 
-  void StringSlice(const struct String *self, int start, int end, int step, struct String *destination);
-
 #endif /* STRING_H */
