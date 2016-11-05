@@ -1,6 +1,7 @@
 /*
  * PLEASE NOTICE!
- * I am not the author of the code. The original code can be found at:
+ * I am not the author of the majority of this random generator code. 
+ * The original code can be found at:
  * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/
  *
  * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.h
@@ -16,20 +17,6 @@
  *
  * https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/LICENSE.v8
  *
- * P.S. I did write some of the functions myself, but they are mostly built atop
- * the V8 ones and I don't deem necessary to list them. Eitherway, please include 
- * the copyright notice above, if you want to use it in your code. Thanks!
- *
- * If you find any bugs in the code, please message me here on Codewars, or create
- * a pull request on GitHub: 
- * https://github.com/CptDemocracy/C/tree/master/HelperClasses
- * The files you might be looking for are:
- * - RandomUtilities.h
- * - RandomUtilities.c
- * - V8RandomPort/RandomGenerator.h
- * - V8RandomPort/RandomGenerator.c
- *
- * Happy coding!
  */
 
 #include <stdint.h>
@@ -66,16 +53,6 @@ int RandomGeneratorNextInt(struct RandomGenerator *self, int max);
 
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.cc#L118
 int RandomGeneratorNext(struct RandomGenerator *self, int bits);
-
-bool RandomBernoulli(struct RandomGenerator *generator);
-
-void RandomShuffle(struct RandomGenerator *generator, void *items, size_t itemCount, size_t itemSize);
-
-void *RandomChoice(struct RandomGenerator *generator, const void *items, size_t itemCount, size_t itemSize);
-
-void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_t stringLength, const char *charsSelection);
-
-int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxValue);
 
 // See: https://github.com/v8/v8/blob/085fed0fb5c3b0136827b5d7c190b4bd1c23a23e/src/base/utils/random-number-generator.h#L101
 static inline void XorShift128(uint64_t* state0, uint64_t* state1) {
@@ -208,17 +185,4 @@ void RandomShuffle(struct RandomGenerator *generator, void *items, size_t itemCo
 void *RandomChoice(struct RandomGenerator *generator, const void *items, size_t itemCount, size_t itemSize) {
   const size_t index = RandomGeneratorNextInt(generator, itemCount);
   return (void*)((char*)items + index * itemSize);
-}
-
-void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_t stringLength, const char *charsSelection) {
-  const size_t charsSelectionLength = strlen(charsSelection);
-  for (size_t index = 0; index < stringLength; ++index) {
-    const char selectedChar = *(char*)RandomChoice(generator, charsSelection, charsSelectionLength, sizeof(char));
-    buffer[index] = selectedChar;
-  }
-  buffer[stringLength] = '\0';
-}
-
-int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxExclusiveValue) {
-  return minValue + RandomGeneratorNextInt(generator, maxExclusiveValue - minValue);
 }
