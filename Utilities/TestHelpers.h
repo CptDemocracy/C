@@ -29,7 +29,7 @@ do {                                                               \
   int areEqual = 1;                                                \
   if (lhsSize == rhsSize) {                                        \
     for (size_t index = 0; index < lhsSize && areEqual; ++index) { \
-      if ((lhs)[index] != (rhs)[index]) {                          \
+      if (&(lhs)[index] != &(rhs)[index]) {                        \
         areEqual = 0;                                              \
       }                                                            \
     }                                                              \
@@ -45,7 +45,7 @@ do {                                                 \
   size_t rhsSize = ARRAY_SIZE(rhs);                  \
   assert(lhsSize == rhsSize);                        \
   for (size_t index = 0; index < lhsSize; ++index) { \
-    assert(!cmp((lhs)[index], (rhs)[index]));        \
+    assert(!cmp(&(lhs)[index], &(rhs)[index]));      \
   }                                                  \
 } while (0)
 
