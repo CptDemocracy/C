@@ -10,6 +10,13 @@ do {                                                               \
   }                                                                \
 } while (0)
 
+#define PRINT_ARRAY_PRINT_FUNCTION(stream, array, arraySize, valuePrintFunction)  \
+do {                                                                              \
+  for (size_t index = 0; index < (arraySize); ++index) {                          \
+    (valuePrintFunction)((stream), &(array)[index]);                              \
+  }                                                                               \
+} while (0)
+
 // NOTE TO SELF:
 // I noticed most of macro parameters are not parenthesized which is 
 // a huge deal. I'm going to fix it ASAP. For now, use caution.
