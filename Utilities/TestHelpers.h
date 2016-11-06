@@ -3,6 +3,17 @@
 
 #define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
 
+#define PRINT_ARRAY(file, array, arraySize, valueFormatSpecifier)  \
+do {                                                               \
+  for (size_t index = 0; index < (arraySize); ++index) {           \
+    (void)fprintf((file), (valueFormatSpecifier), (array)[index]); \
+  }                                                                \
+} while (0)
+
+// NOTE TO SELF:
+// I noticed most of macro parameters are not parenthesized which is 
+// a huge deal. I'm going to fix it ASAP. For now, use caution.
+
 /*#define ASSERT_ARRAY_EQUALS(lhs, rhs)              \
 do {                                                 \
   size_t lhsSize = ARRAY_SIZE(lhs);                  \
