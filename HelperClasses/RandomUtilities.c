@@ -39,3 +39,10 @@ void RandomGenerateString(struct RandomGenerator *generator, char *buffer, size_
 int RandomGetInt(struct RandomGenerator *generator, int minValue, int maxExclusiveValue) {
   return minValue + RandomGeneratorNextInt(generator, maxExclusiveValue - minValue);
 }
+
+void RandomGenerateIntArray(struct RandomGenerator *generator, int *buffer, size_t arrayLength, int minValue, int maxExclusiveValue) {
+  for (size_t index = 0; index < arrayLength; ++index) {
+    const int value = RandomGetInt(generator, minValue, maxExclusiveValue);
+    buffer[index] = value;
+  }
+}
