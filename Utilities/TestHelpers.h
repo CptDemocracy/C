@@ -13,7 +13,7 @@ do {                                                               \
 #define PRINT_ARRAY_PRINT_FUNCTION(stream, array, arraySize, valuePrintFunction)  \
 do {                                                                              \
   for (size_t index = 0; index < (arraySize); ++index) {                          \
-    (valuePrintFunction)((stream), &(array)[index]);                              \
+    (void)(valuePrintFunction)((stream), &(array)[index]);                        \
   }                                                                               \
 } while (0)
 
