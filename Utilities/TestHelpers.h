@@ -3,33 +3,35 @@
 
 #define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
 
-#define PRINT_ARRAY(file, array, arraySize, valueFormatSpecifier)  \
-do {                                                               \
-  for (size_t index = 0; index < (arraySize); ++index) {           \
-    (void)fprintf((file), (valueFormatSpecifier), (array)[index]); \
-  }                                                                \
+#define PRINT_ARRAY(stream, array, arraySize, valueFormatSpecifier)  \
+do {                                                                              \
+  if (array) {                                                                    \
+    (void)fprintf((stream), "{\n");                                               \
+    for (size_t index = 0; index < (arraySize); ++index) {                        \
+      (void)fprintf((stream), (valueFormatSpecifier), (array)[index]);            \
+    }                                                                             \
+    (void)fprintf((stream), "\n}");                                               \
+  } else {                                                                        \
+    (void)fprintf((stream), "NULL");                                              \
+  }                                                                               \
 } while (0)
 
 #define PRINT_ARRAY_PRINT_FUNCTION(stream, array, arraySize, valuePrintFunction)  \
 do {                                                                              \
-  for (size_t index = 0; index < (arraySize); ++index) {                          \
-    (void)(valuePrintFunction)((stream), &(array)[index]);                        \
+  if (array) {                                                                    \
+    (void)fprintf((stream), "{\n");                                               \
+    for (size_t index = 0; index < (arraySize); ++index) {                        \
+      (void)(valuePrintFunction)((stream), &(array)[index]);                      \
+    }                                                                             \
+    (void)fprintf((stream), "\n}");                                               \
+  } else {                                                                        \
+    (void)fprintf((stream), "NULL");                                              \
   }                                                                               \
 } while (0)
 
 // NOTE TO SELF:
 // I noticed most of macro parameters are not parenthesized which is 
 // a huge deal. I'm going to fix it ASAP. For now, use caution.
-
-/*#define ASSERT_ARRAY_EQUALS(lhs, rhs)              \
-do {                                                 \
-  size_t lhsSize = ARRAY_SIZE(lhs);                  \
-  size_t rhsSize = ARRAY_SIZE(rhs);                  \
-  assert(lhsSize == rhsSize);                        \
-  for (size_t index = 0; index < lhsSize; ++index) { \
-    assert((lhs)[index] == (rhs)[index]);            \
-  }                                                  \
-} while (0)*/
 
 #define ASSERT_ARRAY_EQUALS(lhs, lhsSize, rhs, rhsSize)            \
 do {                                                               \
@@ -46,17 +48,19 @@ do {                                                               \
   assert(areEqual);                                                \
 } while (0)
 
-#define ASSERT_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)\
-do {                                                                   \
-  int areEqual = 1;                                                    \
-  if (lhsSize == rhsSize) {                                            \
-    for (size_t index = 0; index < lhsSize && areEqual; ++index) {     \
-      areEqual = cmp(&(lhs)[index], &(rhs)[index]);                    \
-    }                                                                  \
-  } else {                                                             \
-    areEqual = 0;                                                      \
-  }                                                                    \
-  assert(areEqual);                                                    \
+#define ASSERT_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)                 \
+do {                                                                                    \
+  int areEqual = ((lhsSize) == (rhsSize)) && (((lhs) && (rhs)) || (!(lhs) && !(rhs)));  \
+  if (areEqual) {                                                                       \
+	  if ((lhs) && (rhs)) {                                                               \
+	    for (size_t index = 0; index < (lhsSize) && areEqual; ++index) {                  \
+		    areEqual = !(cmp)(&(lhs)[index], &(rhs)[index]);                                \
+	    }                                                                                 \
+	  }                                                                                   \
+  } else {                                                                              \
+    areEqual = 0;                                                                       \
+  }                                                                                     \
+  assert(areEqual);                                                                     \
 } while (0)
 
 /*#define ASSERT_DYNAMIC_ARRAY_EQUALS(lhs, lhsSize, rhs, rhsSize)   \
