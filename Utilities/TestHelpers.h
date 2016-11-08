@@ -46,14 +46,17 @@ do {                                                               \
   assert(areEqual);                                                \
 } while (0)
 
-#define ASSERT_ARRAY_EQUALS_COMPARE_FN(lhs, rhs, cmp)\
-do {                                                 \
-  size_t lhsSize = ARRAY_SIZE(lhs);                  \
-  size_t rhsSize = ARRAY_SIZE(rhs);                  \
-  assert(lhsSize == rhsSize);                        \
-  for (size_t index = 0; index < lhsSize; ++index) { \
-    assert(!cmp(&(lhs)[index], &(rhs)[index]));      \
-  }                                                  \
+#define ASSERT_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)\
+do {                                                                   \
+  int areEqual = 1;                                                    \
+  if (lhsSize == rhsSize) {                                            \
+    for (size_t index = 0; index < lhsSize && areEqual; ++index) {     \
+      areEqual = cmp(&(lhs)[index], &(rhs)[index]);                    \
+    }                                                                  \
+  } else {                                                             \
+    areEqual = 0;                                                      \
+  }                                                                    \
+  assert(areEqual);                                                    \
 } while (0)
 
 /*#define ASSERT_DYNAMIC_ARRAY_EQUALS(lhs, lhsSize, rhs, rhsSize)   \
