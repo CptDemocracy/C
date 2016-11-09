@@ -3,7 +3,7 @@
 
 #define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
 
-#define PRINT_ARRAY(stream, array, arraySize, valueFormatSpecifier)  \
+/*#define PRINT_ARRAY(stream, array, arraySize, valueFormatSpecifier)  \
 do {                                                                              \
   if (array) {                                                                    \
     (void)fprintf((stream), "{\n");                                               \
@@ -11,6 +11,20 @@ do {                                                                            
       (void)fprintf((stream), (valueFormatSpecifier), (array)[index]);            \
     }                                                                             \
     (void)fprintf((stream), "\n}");                                               \
+  } else {                                                                        \
+    (void)fprintf((stream), "NULL");                                              \
+  }                                                                               \
+} while (0)*/
+
+#define PRINT_ARRAY(stream, array, arraySize, valueFormatSpecifier)               \
+do {                                                                              \
+  if (array) {                                                                    \
+    (void)fprintf((stream), "{ ");                                                \
+    for (size_t index = 0; index < (arraySize); ++index) {                        \
+        (void)fprintf((stream), (valueFormatSpecifier), (array)[index]);          \
+        if (index != arraySize - 1) (void)fprintf((stream), ", ");                \
+    }                                                                             \
+    (void)fprintf((stream), " }");                                                \
   } else {                                                                        \
     (void)fprintf((stream), "NULL");                                              \
   }                                                                               \
