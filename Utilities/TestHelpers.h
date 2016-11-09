@@ -66,11 +66,11 @@ do {                                                               \
 do {                                                                                    \
   int areEqual = ((lhsSize) == (rhsSize)) && (((lhs) && (rhs)) || (!(lhs) && !(rhs)));  \
   if (areEqual) {                                                                       \
-	  if ((lhs) && (rhs)) {                                                               \
-	    for (size_t index = 0; index < (lhsSize) && areEqual; ++index) {                  \
-		    areEqual = !(cmp)(&(lhs)[index], &(rhs)[index]);                                \
-	    }                                                                                 \
-	  }                                                                                   \
+	  if ((lhs) && (rhs)) {                                                         \
+	    for (size_t index = 0; index < (lhsSize) && areEqual; ++index) {            \
+		    areEqual = !(cmp)(&(lhs)[index], &(rhs)[index]);                    \
+	    }                                                                           \
+	  }                                                                             \
   } else {                                                                              \
     areEqual = 0;                                                                       \
   }                                                                                     \
@@ -108,7 +108,7 @@ do {                                                                            
       }                                                                         \
     }                                                                           \
   }                                                                             \
-  assert(areEqual);                                                          \
+  assert(areEqual);                                                            \
  } while (0)
 
 /*#define ASSERT_DYNAMIC_ARRAY_EQUALS_COMPARE_FN(lhs, lhsSize, rhs, rhsSize, cmp)  \
