@@ -5,7 +5,7 @@
  * Usage: 
  * ```
  * const int x = 42;
- * (void)printf("0b%s\n". TO_BIN_16(x)); /* Outputs: 0b0000000000101010 */
+ * (void)printf("0b%s\n". TO_BIN_16(x)); // Outputs: 0b0000000000101010
  * ```
  * It's perfectly OK that we're using a 32-bit int, it's just that TO_BIN_16
  * will only output its first 16 bits.
@@ -16,7 +16,7 @@
  *
  * ```
  * const int x = 42;
- * (void)printf("0b" TO_BIN_16(x)); /* Error. */
+ * (void)printf("0b" TO_BIN_16(x)); // Error.
  * ```
  */
  
