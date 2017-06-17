@@ -6,7 +6,7 @@
  * 17 June 2017
  * siebenschlaefer reported a problem with the variable `_` being marked as unused when using the elevated
  * warning reporting level in a compiler. Resolved by adding: `(void)_` to the increment expression in the 
- * for-block.
+ * for-block. Thank you very much for letting me know, siebenschlaefer!
  */
  
 #ifndef NERO_DBG_DSL
