@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static const int _T_BUF_SIZE = 255;
 static int       _t_buf_pos  = 0;
